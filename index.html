@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .fl {
+            float: left;
+        }
+        
+        table {
+            border-collapse: collapse;
+        }
+        
+        td {
+            padding: 6px;
+            width: 90px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        
+        img {
+            width: 100px;
+            cursor: pointer;
+        }
+        
+        .box01 {
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box01 fl">
+        <h1>华莱士点菜系统</h1>
+        <ul>
+        </ul>
+    </div>
+    <div class="box02 fl">
+        <h2>购物车<span class="order">0</span>件商品</h2>
+        <table>
+            <tr>
+                <td>已点</td>
+                <td>单价</td>
+                <td>操作</td>
+            </tr>
+        </table>
+        <h3>￥<span class="total"></span></h3>
+    </div>
+    <script>
+        let ul = document.querySelector('ul')
+        let order = document.querySelector('.order')
+        let table = document.querySelector('table')
+        let total = document.querySelector('.total')
+        let arr = [{
+            pic: './1.jpg',
+            title: '内阁',
+            price: -1
+        }, {
+            pic: './2.jpg',
+            title: '8号牢大',
+            price: 24
+        }, {
+            pic: './3.jpg',
+            title: '24号牢大',
+            price: 8
+        }, {
+            pic: './4.jpg',
+            title: '名刀司命',
+            price: 1980
+        }, {
+            pic: './5.jpg',
+            title: '爱情坤',
+            price: 25
+        }, {
+            pic: './6.jpg',
+            title: '月半猫',
+            price: 50
+        }]
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+            let li = document.createElement('li')
+            ul.appendChild(li)
+            let img = document.createElement('img')
+            li.appendChild(img)
+            img.src = arr[i].pic
+            img.addEventListener('click', function() {
+                let tr = document.createElement('tr')
+                let td01 = document.createElement('td')
+                let td02 = document.createElement('td')
+                let td03 = document.createElement('td')
+                table.appendChild(tr)
+                tr.appendChild(td01)
+                tr.appendChild(td02)
+                tr.appendChild(td03)
+                td01.innerHTML = arr[i].title
+                td02.innerHTML = arr[i].price
+                let num = 0;
+                num = table.children.length - 1
+                order.innerHTML = num
+                sum += arr[i].price
+                total.innerHTML = sum
+
+                let button = document.createElement('button')
+                td03.appendChild(button)
+                button.innerHTML = '删除'
+                button.addEventListener('click', function() {
+                    table.removeChild(tr)
+                    num = table.children.length - 1
+                    order.innerHTML = num
+                    sum -= arr[i].price
+                    total.innerHTML = sum
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>
